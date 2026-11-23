@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bgxc2a5a1wasx"]
 
 [ext_resource type="Script" uid="uid://beta1agqrslpv" path="res://scripts/player.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://c5gpwmnfj72us" path="res://assets/Ninja_Male.gltf" id="2_0wfyh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -25,9 +26,9 @@ uv1_triplanar = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_kdyxl"]
 size = Vector3(20, 1, 20)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kdyxl"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_kdyxl"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iqtt8"]
+radius = 0.4
+height = 3.2287598
 
 [node name="Main" type="Node3D" unique_id=1134687893]
 
@@ -41,6 +42,7 @@ shadow_enabled = true
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1773235033]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1148668047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5144212, 0.0473994, 0.51002836)
 mesh = SubResource("BoxMesh_kdyxl")
 surface_material_override/0 = SubResource("StandardMaterial3D_iqtt8")
 
@@ -51,11 +53,53 @@ shape = SubResource("BoxShape3D_kdyxl")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_o5qli")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2018469131]
-shape = SubResource("CapsuleShape3D_kdyxl")
+[node name="CameraPivot" type="SpringArm3D" parent="Player" unique_id=1522844879]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 1.5, 0)
+spring_length = 5.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=1332658653]
-mesh = SubResource("CapsuleMesh_kdyxl")
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot" unique_id=2127155435]
 
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=2127155435]
-transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 3, 6)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1293227299]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4940186, 0)
+shape = SubResource("CapsuleShape3D_iqtt8")
+
+[node name="Ninja_Male" parent="Player" unique_id=517481881 instance=ExtResource("2_0wfyh")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Player/Ninja_Male/CharacterArmature" parent_id_path=PackedInt32Array(517481881, 1836523178) index="0" unique_id=1981957053]
+bones/1/position = Vector3(0.2654247, 0.024662875, -0.04505539)
+bones/1/rotation = Quaternion(5.197531e-06, 0.70295197, 0.71123743, 5.3323706e-06)
+bones/2/position = Vector3(-0.0029855117, 0.9695294, 0.09237294)
+bones/2/rotation = Quaternion(-0.000517528, 0.0036429984, 2.4427643e-05, 0.9999932)
+bones/3/position = Vector3(-0.0014799346, -0.06677485, -0.046242252)
+bones/3/rotation = Quaternion(-0.050768822, -2.6742362e-07, -2.2758748e-08, 0.99871045)
+bones/4/rotation = Quaternion(0.07463377, 4.366621e-07, 4.6165518e-08, 0.99721104)
+bones/5/rotation = Quaternion(0.08271854, -8.3270425e-07, 1.7229468e-08, 0.996573)
+bones/6/rotation = Quaternion(-0.031992286, 2.4094792e-05, 0.00013921199, 0.9994882)
+bones/7/rotation = Quaternion(-0.11539915, 0.00014948843, 5.673123e-06, 0.9933193)
+bones/8/position = Vector3(0.1261028, 0.1413391, 0.013457697)
+bones/9/rotation = Quaternion(0.50272125, 0.40109104, 0.60615665, -0.46794403)
+bones/10/rotation = Quaternion(-0.19371852, -0.074228995, -0.29744986, 0.9319265)
+bones/11/rotation = Quaternion(0.009362075, 0.17389041, -0.013174594, 0.98463243)
+bones/12/position = Vector3(-0.12482614, 0.14133917, 0.013457811)
+bones/13/rotation = Quaternion(-0.5361396, 0.41733503, 0.6009514, 0.42100275)
+bones/14/rotation = Quaternion(-0.19676882, -0.036595047, 0.056219038, 0.9781525)
+bones/15/rotation = Quaternion(0.012537907, -0.018195182, 0.0065430785, 0.99973446)
+bones/16/position = Vector3(0.25302902, -0.016702099, -0.055923745)
+bones/16/rotation = Quaternion(0.9916746, 0.01217649, 0.005774641, 0.12806205)
+bones/16/scale = Vector3(0.9999983, 0.9999973, 0.9999504)
+bones/17/rotation = Quaternion(0.30792448, 0.00332023, 0.009252352, 0.9513601)
+bones/17/scale = Vector3(1.0000007, 1.0000116, 1.00001)
+bones/18/position = Vector3(-0.2547122, -0.016702069, -0.055924114)
+bones/18/rotation = Quaternion(0.992038, -0.0071739154, 0.0019519727, 0.12571923)
+bones/18/scale = Vector3(0.99999785, 0.9999974, 0.99995095)
+bones/19/rotation = Quaternion(0.30737868, -0.0033148795, -0.009254258, 0.9515365)
+bones/19/scale = Vector3(1.0000007, 1.0000113, 1.00001)
+bones/20/position = Vector3(0.26199377, 0.10974836, 1.8516366)
+bones/20/rotation = Quaternion(-3.5526934e-15, 1.1920937e-07, -8.470344e-22, 1)
+bones/21/position = Vector3(-0.26280168, 0.024662875, -0.045055628)
+bones/21/rotation = Quaternion(-5.6491463e-06, 0.7029519, 0.71123743, -4.997177e-06)
+bones/22/position = Vector3(-0.25937378, 0.10974836, 1.8516364)
+bones/22/rotation = Quaternion(-3.552734e-15, -5.9604645e-07, 3.3881257e-21, 1)
+
+[editable path="Player/Ninja_Male"]
